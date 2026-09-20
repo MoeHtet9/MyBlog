@@ -1,0 +1,22 @@
+1. MySQLi Procedural
+2. MySQLi Object Oriented
+3. PDO (PHP Data Object) => Secure, MBMS လုပ်တဲ့အခါမြန်တယ်
+
+MySQL Database နဲ့ချိတ်မယ်ဆိုရင် အဆင့် ၃ ဆင့်ရှိတယ်
+1. connection with Database
+2. Run SQL Query
+3. Closing the Database connection
+
+url bar ကတယ်လာရင် $_GET["id"]
+
+Query မှာ connection ဆို WHERE ပဲရှိတယ်
+
+$sql = "SELECT posts.*, categories.name as category_name, users.name as user_name FROM posts INNER JOIN categories ON posts.category_id = categories.id INNER JOIN users ON posts.user_id = users.id WHERE posts.id = $id";
+table ချိတ်နည်း
+
+ORDER BY id DESC || ASC ရှေ့နောက်စီခြင်သုံး
+
+LIMIT 1
+
+$feature_post = $stmt->fetch(PDO::FETCH_ASSOC); => data တစ်ကြောင်းထဲထုပ်
+$posts = $stmt->fetchAll(); => data အကုန်ထုပ်
