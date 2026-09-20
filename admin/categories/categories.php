@@ -1,84 +1,71 @@
 <?php
 
-    include "dbconnect.php";
+    include "../dbconnect.php";
 
-    $sql = " SELECT posts.*, categories.name as category_name, users.name as user_name FROM posts INNER JOIN categories ON posts.category_id = categories.id INNER JOIN users ON posts.user_id = users.id ORDER BY posts.id DESC";
+    $sql = "SELECT * FROM categories ORDER BY id DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
-    $posts = $stmt->fetchAll();
-    // var_dump($posts);
+    $categories = $stmt->fetchAll();
+    // var_dump($categories);
 
     if($_SERVER['REQUEST_METHOD'] == "POST"){
 
         $id = $_POST['id'];
 
-        $sql = "DELETE FROM posts WHERE id = :id";
+        $sql = "DELETE FROM categories WHERE id = :id";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':id',$id);
         $stmt->execute();
 
-        header('location:posts.php');
+        header('location:categories.php');
 
     }
 
-    include "layouts/nav_sidebar.php";
+    include "../layouts/nav_sidebar.php";
 
 ?>
 
     <main>
         <div class="container-fluid px-4">
             <div class="mt-3">
-                <h1 class="mt-4 d-inline">Posts</h1>
-                <a href="create_post.php" class="btn btn-primary float-end">Create Post</a>
+                <h1 class="mt-4 d-inline">Categories</h1>
+                <a href="create_categories.php" class="btn btn-primary float-end">Create Post</a>
             </div>
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-                <li class="breadcrumb-item active">Posts</li>
+                <li class="breadcrumb-item active">Categories</li>
             </ol>
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-table me-1"></i>
-                    Posts
+                    Categories
                 </div>
                 <div class="card-body">
                     <table id="datatablesSimple">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>Title</th>
-                                <th>User</th>
-                                <th>Image</th>
-                                <th>Category</th>
+                                <th>Name</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
-                                <th>No</th>
-                                <th>Title</th>
-                                <th>User</th>
-                                <th>Image</th>
-                                <th>Category</th>
+                                <th>Name</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
                         <tbody>
                             <?php
                             
-                                foreach($posts as $post) {
+                                foreach($categories as $category) {
 
                             ?>
 
                             <tr>
-                                <th><?= $post['id'] ?></th>
-                                <th><?= $post['title'] ?></th>
-                                <th><?= $post['user_name'] ?></th>
-                                <th><img src="<?= $post['image'] ?>" alt="..." width="50px" height="50px"></th>
-                                <th><?= $post['category_name'] ?></th>
+                                <th><?= $category['name'] ?></th>
                                 <th>
-                                    <!-- <button type="button" class="btn btn-outline-primary">Detail</button> -->
-                                    <a href="edit.php?id=<?= $post['id']?>" type="button" class="btn btn-outline-warning mx-1">Edit</a>
-                                    <button type="button" class="btn btn-outline-danger delete" data-id="<?= $post['id'] ?>">Delete</button>
+                                    <a href="edit_c.php?c_id=<?= $category['id'] ?>" type="button" class="btn btn-outline-warning mx-1">Edit</a>
+                                    <button type="button" class="btn btn-outline-danger delete" data-id="<?= $category['id'] ?>">Delete</button>
                                 </th>
                             </tr>
 
@@ -130,6 +117,6 @@
                 
 <?php
 
-    include "layouts/footer.php";
+    include "../layouts/footer.php";
 
 ?>
