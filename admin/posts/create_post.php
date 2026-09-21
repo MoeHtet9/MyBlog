@@ -1,4 +1,7 @@
 <?php 
+
+    session_start();
+    if($_SESSION['user_id']){
     
     include "../dbconnect.php";
 
@@ -6,7 +9,7 @@
         $title = $_POST['title'];
         $description = $_POST['description'];
         $category_id = $_POST['category_id'];
-        $user_id = 1 ;
+        $user_id = 3 ;
 
         $imageArray = $_FILES['image'];
         // var_dump($imageArray);
@@ -101,4 +104,8 @@
 
 <?php 
     include '../layouts/footer.php';
+
+    }else{
+        header('location: ../login.php');
+    }
 ?>

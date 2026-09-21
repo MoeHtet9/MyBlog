@@ -1,12 +1,16 @@
 <?php
 
+    session_start();
+    if($_SESSION['user_id']){
+
     include "../dbconnect.php";
 
-    $sql = " SELECT posts.*, categories.name as category_name, users.name as user_name FROM posts INNER JOIN categories ON posts.category_id = categories.id INNER JOIN users ON posts.user_id = users.id ORDER BY posts.id DESC";
+    $sql = "SELECT posts.*, categories.name as category_name, users.name as user_name FROM posts INNER JOIN categories ON posts.category_id = categories.id INNER JOIN users ON posts.user_id = users.id ORDER BY posts.id DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $posts = $stmt->fetchAll();
     // var_dump($posts);
+    // die();
 
     if($_SERVER['REQUEST_METHOD'] == "POST"){
 
@@ -76,7 +80,6 @@
                                 <th><img src="../<?= $post['image'] ?>" alt="..." width="50px" height="50px"></th>
                                 <th><?= $post['category_name'] ?></th>
                                 <th>
-                                    <!-- <button type="button" class="btn btn-outline-primary">Detail</button> -->
                                     <a href="edit.php?id=<?= $post['id']?>" type="button" class="btn btn-outline-warning mx-1">Edit</a>
                                     <button type="button" class="btn btn-outline-danger delete" data-id="<?= $post['id'] ?>">Delete</button>
                                 </th>
@@ -131,5 +134,9 @@
 <?php
 
     include "../layouts/footer.php";
+
+    }else{
+        header('location: ../login.php');
+    }
 
 ?>

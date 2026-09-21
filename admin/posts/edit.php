@@ -1,4 +1,7 @@
 <?php 
+
+    session_start();
+    if($_SESSION['user_id']){
     
     include "../dbconnect.php";
 
@@ -111,7 +114,7 @@
                             <br>
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="image-tab-pane" role="tabpanel" aria-labelledby="image-tab" tabindex="0">
-                                    <img src="<?= $post['image'] ?>" alt="" width="50px" height="50px">
+                                    <img src="../<?= $post['image'] ?>" alt="" width="50px" height="50px">
                                     <input type="hidden" id="" name="old_image" value="<?= $post['image'] ?>">
                                 </div>
                                 <div class="tab-pane fade" id="new-image-tab-pane" role="tabpanel" aria-labelledby="new-image-tab" tabindex="0">
@@ -135,4 +138,8 @@
 
 <?php 
     include '../layouts/footer.php';
+
+    }else{
+        header('location: ../login.php');
+    }
 ?>

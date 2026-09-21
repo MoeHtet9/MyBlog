@@ -1,4 +1,8 @@
 <?php 
+
+    session_start();
+
+    if($_SESSION['user_role'] == 'admin'){
     
     include "../dbconnect.php";
 
@@ -64,4 +68,6 @@
 
 <?php 
     include '../layouts/footer.php';
+
+    }
 ?>

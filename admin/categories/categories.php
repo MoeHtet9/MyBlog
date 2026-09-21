@@ -1,5 +1,9 @@
 <?php
 
+    session_start();
+
+    if($_SESSION['user_role'] == 'admin'){
+
     include "../dbconnect.php";
 
     $sql = "SELECT * FROM categories ORDER BY id DESC";
@@ -29,7 +33,7 @@
         <div class="container-fluid px-4">
             <div class="mt-3">
                 <h1 class="mt-4 d-inline">Categories</h1>
-                <a href="create_categories.php" class="btn btn-primary float-end">Create Post</a>
+                <a href="create_categories.php" class="btn btn-primary float-end">Create Category</a>
             </div>
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
@@ -118,5 +122,7 @@
 <?php
 
     include "../layouts/footer.php";
+
+    }
 
 ?>
